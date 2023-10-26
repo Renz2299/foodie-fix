@@ -1,110 +1,134 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Foodie Fix - *Milestone Project 3*
 
-Welcome USER_NAME,
+**Find the final project here:**
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+A back end web application that allows users to browse a directory of recipes as well as add their own recipes.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
-
-## Gitpod Reminders
-
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
-
-`python3 -m http.server`
-
-A blue button should appear to click: _Make Public_,
-
-Another blue button should appear to click: _Open Browser_.
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A blue button should appear to click: _Make Public_,
-
-Another blue button should appear to click: _Open Browser_.
-
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
-------
-
-## Release History
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**September 20 2023:** Update Python version to 3.9.17.
-
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
-
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
-
-**July 2 2021:** Remove extensions that are not available in Open VSX.
-
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
-
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
-
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
-
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+![The Foodie Fix application shown across multiple displays](foodie_fix/static/img/readme_imgs/renders_final.png)
 
 ---
 
-Happy coding!
+## Table of Contents
+1. [Project Overview](#project-overview)
+2. [User Experience](#user-experience)
+3. [Design Choices](#design-choices)
+4. [Project Management](#project-management)
+5. [Site Development & Features](#site-development--features)
+    * [Universal Site Elements](#universal-site-elements)
+    * [Explore Page](#explore-indexhtml)
+    * [Inspiration Page](#inspiration-inspirationhtml)
+    * [Contact Page](#contact-contacthtml)
+6. [Pre-Deployment Testing](#pre-deployment-testing)
+    * [Manual vs. Automated Testing](#manual-vs-automated-testing)
+    * [Testing During Development](#testing-during-development)
+    * [Bug Fixes](#bug-fixes)
+    * [Responsiveness](#responsiveness)
+    * [Browser Compatibility](#browser-compatibility)
+    * [Code Validation](#code-validation)
+    * [User Story Testing](#user-story-testing)
+    * [Feature Testing](#feature-testing)
+7. [Deployment](#deployment)
+8. [Post-Deployment Testing](#post-deployment-testing)
+    * [Responsiveness](#responsiveness-1)
+    * [Browser Compatibility](#browser-compatibility-1)
+    * [Lighthouse Testing](#lighthouse-testing)
+    * [Future Improvements](#future-improvements)
+9. [Credits & Acknowledgements](#credits--acknowledgements)
+
+---
+
+## Project Overview
+Foodie Fix is a back end web application intended to help users find cooking inspiration and add their own recipes to a digital cookbook as well as allow other users to view their recipes. The application consits of three main pages: The Home page, which is the recipe directory showing all recipes added to the application from any users; the My Recipes page, which is individual to each user showing them the recipes they have added to the application themselves and; the Account page, where users can view and edit their account details.
+
+---
+
+## User Experience
+
+### Project Goals
+The primary goal of the application is to provide a helpful tool where users can browse existing recipes and leave reviews as well as add and edit their own recipes. Foodie Fix has two key target audience:
+- People looking for cooking inspiration and new recipes to try.
+- People wanting to store their recipes digitally for themselves and others to see.
+
+These target audiences aren't exclusive and some users may want to use Foodie Fix for both purposes.
+
+### Persona One
+
+**User:** Sarah, 36
+
+Sarah is a Data Analyst based in Surrey. Her and her husband have two young children, together they enjoy exploring the outdoors and taking their dog for walks in the woods.
+
+**Sarah's Goals:**
+- Find new recipes for family meals.
+- Publish her own recipes so they are easy to access in the future.
+- Get reviews on her own published recipes.
+
+**How the site helps Sarah:**
+- Allows her to find new recipes created by other users.
+- Provides her with a digital cookbook where she can publish her own recipes.
+- Allows other users to review her published recipes.
+
+### Persona Two
+
+**User:** Oscar, 52
+
+Oscar is a Carpenter based in Newport, he enjoys spending time with his wife and family, albeit fleeting now that his three children are grown up.
+
+**Oscar's Goals:**
+- Publish his own recipes for his family and friends to try themselves.
+- Find new recipes to try at his next family dinner party.
+
+**How the site helps Oscar:**
+- Allows him to publish his own recipes for others to find and try.
+- Provides a directory of recipes for him to browse and try.
+
+### Wireframes
+
+---
+
+## Design Choices
+
+### Colours
+
+From looking at current cooking brands, orange and reds appears to be recurring colours due to their resemblance of food, specifically fruits. I wanted this site to be more vibrant, therefore I used Adobe Colour to test out brighter tones of orange and red until I came the colour scheme shown below.
+
+![The final colour scheme (deep fuscia, white, deep orange, mustard & pale yellow)](foodie_fix/static/img/readme_imgs/colour_scheme_final.png)
+
+This colour scheme was tested using Adobe's accessibility tools to check the contrast ratio of different colour combinations.
+
+![](foodie_fix/static/img/readme_imgs/colour_check_1.png)
+
+![](foodie_fix/static/img/readme_imgs/colour_check_2.png)
+
+![](foodie_fix/static/img/readme_imgs/colour_check_3.png)
+
+![](foodie_fix/static/img/readme_imgs/colour_check_4.png)
+
+![](foodie_fix/static/img/readme_imgs/colour_check_5.png)
+
+### Typography
+
+### Hi-Fi Wireframes
+
+---
+
+## Project Management
+
+---
+
+## Site Development & Features
+
+---
+
+## Pre-Deployment Testing
+
+---
+
+## Deployment
+
+---
+
+## Post-Deployment Testing
+
+---
+
+## Credits & Acknowledgement
