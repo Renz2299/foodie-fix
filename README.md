@@ -83,6 +83,18 @@ Oscar is a Carpenter based in Newport, he enjoys spending time with his wife and
 
 ### Wireframes
 
+**Home Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk1_01.png)
+
+**My Recipes Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk1_02.png)
+
+**Account Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk1_03.png)
+
 ---
 
 ## Design Choices
@@ -108,6 +120,29 @@ This colour scheme was tested using Adobe's accessibility tools to check the con
 ### Typography
 
 ### Hi-Fi Wireframes
+
+**Landing Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk2-04.png)
+
+**Home Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk2-05.png)
+
+**My Recipes Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk2-06.png)
+
+**Recipe Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk2-07.png)
+
+**Account Page**
+
+![](foodie_fix/static/img/readme_imgs/wireframes_mk2-08.png)
+
+Aspirational features:
+- Filter the main database
 
 ---
 
