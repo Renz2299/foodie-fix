@@ -4,6 +4,10 @@
     background-color: #DF6D00;
 }
 
+.bg-deep-fuscia {
+    background-color: #BF0D38;
+}
+
 .brand-logo {
     font-family: 'Marvel', sans-serif;
 }
@@ -26,6 +30,11 @@ h3 {
     font-family: 'Nunito', sans-serif;
 }
 
-p {
+footer p {
     font-family: 'Carme', sans-serif;
+}
+
+.nunito-white {
+    font-family: 'Nunito', sans-serif;
+    color: #ffffff;
 }
