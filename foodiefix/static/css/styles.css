@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Carme&family=Marvel:wght@700&family=Nunito:wght@800&display=swap');
+
+.bg-deep-orange {
+    background-color: #DF6D00;
+}
+
+.brand-logo {
+    font-family: 'Marvel', sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.deep-fuscia-text {
+    color: #BF0D38;
+}
+
+h3 {
+    font-family: 'Nunito', sans-serif;
+}
+
+p {
+    font-family: 'Carme', sans-serif;
+}
