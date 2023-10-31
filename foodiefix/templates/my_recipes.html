@@ -12,4 +12,23 @@
     </div>
 </div>
 
+<div class="row">
+    {% for recipe in recipes %}
+    <div class="col s12 m6 l4">
+        <div class="card bg-pale-yellow">
+            <div class="card-image">
+                <img src="static/img/readme_imgs/colour_scheme_final.png">
+            </div>
+            <div class="card-content">
+                <span class="card-title">{{ recipe.recipe_title }}</span>
+                <p>{{ recipe.recipe_description }}</p>
+            </div>
+            <div class="card-action">
+                <a href="#" class="btn bg-deep-fuscia">More Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
