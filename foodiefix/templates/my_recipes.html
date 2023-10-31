@@ -24,7 +24,7 @@
                 <p>{{ recipe.recipe_description }}</p>
             </div>
             <div class="card-action">
-                <a href="#" class="btn bg-deep-fuscia">More Details</a>
+                <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}" class="btn bg-deep-fuscia">More Details</a>
             </div>
         </div>
     </div>

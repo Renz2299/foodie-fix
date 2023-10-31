@@ -28,3 +28,9 @@ def add_recipe():
         db.session.commit()
         return redirect(url_for("my_recipes"))
     return render_template("add_recipe.html")
+
+
+@app.route("/view_recipe<int:recipe_id>")
+def view_recipe(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    return render_template("recipe.html", recipe=recipe)

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card bg-deep-fuscia">
+            <div class="card-content">
+                <span class="card-title">{{ recipe.recipe_title }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m12 l12">
+        <p>{{ recipe.recipe_description }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card bg-pale-yellow">
+            <div class="card-content">
+                <span class="card-title">Ingredients</span>
+                <p>{{ recipe.recipe_ingredients }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card bg-pale-yellow">
+            <div class="card-content">
+                <span class="card-title">Method</span>
+                <p>{{ recipe.recipe_method }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
