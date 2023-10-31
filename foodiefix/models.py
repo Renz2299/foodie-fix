@@ -24,8 +24,8 @@ class Recipe(db.Model):
     recipe_ingredients = db.Column(db.String(255), nullable=False)
     recipe_method = db.Column(db.Text, nullable=False)
     recipe_photo = db.Column(db.String(255), unique=True)
-    created_at = db.Column(db.Date, nullable=False)
-    created_by = db.Column(db.String(20), db.ForeignKey("user.username", ondelete="CASCADE"), nullable=False)  # noqa
+    created_at = db.Column(db.Date)
+    created_by = db.Column(db.String(20), db.ForeignKey("user.username", ondelete="CASCADE"))  # noqa
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
