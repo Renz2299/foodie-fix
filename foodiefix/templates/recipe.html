@@ -11,6 +11,10 @@
     </div>
 </div>
 
+<div class="card-action">
+    <a href="{{ url_for('edit_recipe', recipe_id=recipe.id) }}" class="btn bg-deep-fuscia">Edit Recipe</a>
+</div>
+
 <div class="row">
     <div class="col s12 m12 l12">
         <p>{{ recipe.recipe_description }}</p>

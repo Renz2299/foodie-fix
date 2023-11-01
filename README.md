@@ -188,6 +188,8 @@ If throughout the project there is time to include any of the aspirational featu
 
 ![A relational user table, recipes table and reviews table](foodie_fix/static/img/readme_imgs/db_plan_2.png)
 
+
+
 ---
 
 ## Project Management
