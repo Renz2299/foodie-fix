@@ -45,7 +45,7 @@ footer p, .card-content p {
     color: #ffffff;
 }
 
-.nunito-white, .card-title, .card-action {
+.nunito-white, .card-title {
     font-family: 'Nunito', sans-serif;
     color: #ffffff;
 }
@@ -75,6 +75,36 @@ p {
     border-radius: 5px;
 }
 
-.btn:hover {
+.btn-large {
+    border-radius: 5px;
+}
+
+.btn:hover, .btn-large:hover {
     background-color: #DF6D00;
+}
+
+.btn-recipe {
+    margin-top: 16px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.links {
+    height: 21.75px;
+}
+
+.links li {
+    float: right;
+    margin-right: 30px;
+}
+
+.links li:first-child {
+    margin-right: 0px;
+}
+
+a {
+    color: #FFFFFF;
+}
+
+a:hover {
+    color: #BF0D38;
 }

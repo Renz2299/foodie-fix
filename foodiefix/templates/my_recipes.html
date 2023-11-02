@@ -7,7 +7,6 @@
     <div class="col s12 center-align">
         <a href="{{ url_for('add_recipe') }}" class="btn-large bg-deep-fuscia">
             <p class="nunito-white">Add Recipe</p>
-            <i class="fas fa-plus-square right"></i>
         </a>
     </div>
 </div>
@@ -22,9 +21,7 @@
             <div class="card-content">
                 <span class="card-title">{{ recipe.recipe_title }}</span>
                 <p>{{ recipe.recipe_description }}</p>
-            </div>
-            <div class="card-action">
-                <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}" class="btn bg-deep-fuscia">More Details</a>
+                <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}" class="btn btn-recipe bg-deep-fuscia">More Details</a>
             </div>
         </div>
     </div>
