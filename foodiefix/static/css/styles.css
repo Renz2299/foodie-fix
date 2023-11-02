@@ -12,8 +12,13 @@
     background-color: #f7b76c;
 }
 
-.brand-logo {
+.brand-logo, nav li {
     font-family: 'Marvel', sans-serif;
+    margin: 0px 0px 0px 15px;
+}
+
+nav li a {
+    font-size: 18px;
 }
 
 body {
@@ -32,6 +37,7 @@ main {
 
 h3 {
     font-family: 'Nunito', sans-serif;
+    font-size: 28px;
 }
 
 footer p, .card-content p {
@@ -50,4 +56,25 @@ footer p, .card-content p {
 
 .card {
     border-radius: 5px;
+}
+
+.first-page-item {
+    margin-top: 20px;
+}
+
+.card-title {
+    margin-top: 8px;
+}
+
+p {
+    margin: 0px;
+}
+
+.btn {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #DF6D00;
 }

@@ -5,7 +5,8 @@ from foodiefix.models import User, Recipe
 
 @app.route("/")
 def home():
-    return render_template("recipes.html")
+    recipes = list(Recipe.query.order_by(Recipe.recipe_title).all())
+    return render_template("recipes.html", recipes=recipes)
 
 
 @app.route("/my_recipes")
