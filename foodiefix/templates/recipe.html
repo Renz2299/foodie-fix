@@ -11,8 +11,21 @@
     </div>
 </div>
 
-<div class="card-action">
-    <a href="{{ url_for('edit_recipe', recipe_id=recipe.id) }}" class="btn bg-deep-fuscia">Edit Recipe</a>
+<div class="row">
+    <div class="col s12 m6 l6">
+        <div class="card-action">
+            <a href="{{ url_for('edit_recipe', recipe_id=recipe.id) }}" class="btn bg-deep-fuscia">
+                <p class="nunito-white">Edit Recipe</p>
+            </a>
+        </div>
+    </div>
+    <div class="col s12 m6 l6">
+        <div class="card-action">
+            <a href="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" class="btn bg-deep-fuscia">
+                <p class="nunito-white">Delete Recipe</p>
+            </a>
+        </div>
+    </div>
 </div>
 
 <div class="row">

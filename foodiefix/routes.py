@@ -19,7 +19,7 @@ def my_recipes():
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
 
-    if "user" not in session or session["user"] != "admin":
+    if "user" not in session:
         flash("You must be logged in to add recipes")
         return redirect(url_for("home"))
     
@@ -55,8 +55,16 @@ def edit_recipe(recipe_id):
         recipe.created_at = request.form.get("created_at")
         recipe.created_by = request.form.get("created_by")
         db.session.commit()
-        return redirect(url_for("recipe.html"))
+        return redirect(url_for("view_recipe", recipe_id=recipe.id))
     return render_template("edit_recipe.html", recipe=recipe)
+
+
+@app.route("/delete_recipe/<int:recipe_id>")
+def delete_recipe(recipe_id):
+    recipe = Recipe.query.get_or_404(recipe_id)
+    db.session.delete(recipe)
+    db.session.commit()
+    return redirect(url_for("my_recipes"))
 
 
 @app.route("/register", methods=["GET", "POST"])
