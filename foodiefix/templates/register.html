@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="deep-fuscia-text nunito center-align">Register</h3>
+
+<div class="row card-panel">
+    <form class="col s12" method="POST" action="{{ url_for('register') }}">
+        <!-- username -->
+        <div class="row">
+			<div class="input-field col s12">
+				<i class="fas fa-user-plus prefix"></i>
+				<input id="username" name="username" type="text" minlength="5"
+                    maxlength="20" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+				<label for="username">Username</label>
+			</div>
+            <!-- passowrd -->
+            <div class="input-field col s12">
+			    <i class="fas fa-user-lock prefix"></i>
+                <input id="password" name="password" type="password" minlength="5"
+                    maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+                <label for="password">Password</label>
+            </div>
+            <!-- favourite cuisine -->
+            <div class="input-field col s12">
+				<i class="fas fa-user-plus prefix"></i>
+				<input id="favourite_cuisine" name="favourite_cuisine" type="text"
+                    maxlength="255" class="validate" required>
+				<label for="favourite_cuisine">Favourite Cuisine</label>
+			</div>
+            <!-- profile photo -->
+            <div class="input-field col s12">
+				<i class="fas fa-user-plus prefix"></i>
+				<input id="profile_photo" name="profile_photo" type="text"
+                    maxlength="255" class="validate">
+				<label for="profile_photo">Profile Photo</label>
+			</div>
+        </div>
+        <!-- register -->
+        <div class="row">
+            <button type="submit" class="col s12 btn-large">
+                Register <i class="fas fa-sign-in-alt"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <p class="center-align">
+            Already Registered?
+            <a href="{{ url_for('login') }}" class="">Log In</a>
+        </p>
+    </div>
+</div>
+
+{% endblock %}

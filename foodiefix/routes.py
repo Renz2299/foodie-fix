@@ -1,4 +1,5 @@
-from flask import render_template, request, redirect, url_for
+from flask import flash, render_template, request, redirect, session, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
 from foodiefix import app, db
 from foodiefix.models import User, Recipe
 
@@ -17,6 +18,11 @@ def my_recipes():
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+
+    if "user" not in session or session["user"] != "admin":
+        flash("You must be logged in to add recipes")
+        return redirect(url_for("home"))
+    
     if request.method == "POST":
         recipe = Recipe(
             recipe_title=request.form.get("recipe_title"),
@@ -51,3 +57,66 @@ def edit_recipe(recipe_id):
         db.session.commit()
         return redirect(url_for("recipe.html"))
     return render_template("edit_recipe.html", recipe=recipe)
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_user = User.query.filter(User.username == \
+                                           request.form.get("username").lower()).all()
+        
+        if existing_user:
+            flash("Username already exists")
+            return redirect(url_for("login"))
+        
+        user = User(
+            username=request.form.get("username").lower(),
+            password=generate_password_hash(request.form.get("password"))
+        )
+        
+        db.session.add(user)
+        db.session.commit()
+
+        # put the new user into 'session' cookie
+        session["user"] = request.form.get("username").lower()
+        flash("Registration Successful!")
+        return redirect(url_for("home", username=session["user"]))
+
+    return render_template("register.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # check if username exists in db
+        existing_user = User.query.filter(User.username == \
+                                           request.form.get("username").lower()).all()
+
+        if existing_user:
+            print(request.form.get("username"))
+            # ensure hashed password matches user input
+            if check_password_hash(
+                    existing_user[0].password, request.form.get("password")):
+                        session["user"] = request.form.get("username").lower()
+                        return redirect(url_for(
+                            "home", username=session["user"]))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
+
+        else:
+            # username doesn't exist
+            flash("Username doesn't exist")
+            return redirect(url_for("register"))
+
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))

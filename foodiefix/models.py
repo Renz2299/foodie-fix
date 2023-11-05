@@ -5,9 +5,8 @@ class User(db.Model):
     # schema for the User model
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(20), nullable=False)
-    favourite_cuisine = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    favourite_cuisine = db.Column(db.String(255))
     profile_photo = db.Column(db.String(255), unique=True)
     recipes = db.relationship("Recipe", backref="user", cascade="all, delete", lazy=True)  # noqa
 
