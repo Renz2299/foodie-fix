@@ -7,7 +7,7 @@ class User(db.Model):
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     favourite_cuisine = db.Column(db.String(255))
-    profile_photo = db.Column(db.String(255), unique=True)
+    profile_photo = db.Column(db.String(255))
     recipes = db.relationship("Recipe", backref="user", cascade="all, delete", lazy=True)  # noqa
 
     def __repr__(self):

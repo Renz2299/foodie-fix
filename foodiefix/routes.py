@@ -16,6 +16,11 @@ def my_recipes():
     return render_template("my_recipes.html", recipes=recipes)
 
 
+@app.route("/account")
+def account():
+    return render_template("account.html")
+
+
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
 
@@ -80,7 +85,9 @@ def register():
         
         user = User(
             username=request.form.get("username").lower(),
-            password=generate_password_hash(request.form.get("password"))
+            password=generate_password_hash(request.form.get("password")),
+            favourite_cuisine=request.form.get("favourite_cuisine"),
+            profile_photo=request.form.get("profile_photo")
         )
         
         db.session.add(user)
@@ -89,7 +96,7 @@ def register():
         # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful!")
-        return redirect(url_for("home", username=session["user"]))
+        return redirect(url_for("my_recipes", username=session["user"]))
 
     return render_template("register.html")
 
@@ -108,7 +115,7 @@ def login():
                     existing_user[0].password, request.form.get("password")):
                         session["user"] = request.form.get("username").lower()
                         return redirect(url_for(
-                            "home", username=session["user"]))
+                            "my_recipes", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -127,4 +134,4 @@ def logout():
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
-    return redirect(url_for("login"))
+    return redirect(url_for("home"))

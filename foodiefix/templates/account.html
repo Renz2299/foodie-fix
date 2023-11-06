@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card bg-deep-fuscia first-page-item">
+            <div class="card-content">
+                <img src="#" alt="">
+                <p>Username: {{ session.user.capitalize() }}</p>
+                <p>Favourite Cuisine: {{ session.user.favourite_cuisine }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
