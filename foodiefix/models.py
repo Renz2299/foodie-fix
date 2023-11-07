@@ -1,4 +1,11 @@
 from foodiefix import db
+from flask_login import UserMixin
+from foodiefix import login_manager
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 class User(db.Model):
@@ -10,12 +17,25 @@ class User(db.Model):
     profile_photo = db.Column(db.String(255))
     recipes = db.relationship("Recipe", backref="user", cascade="all, delete", lazy=True)  # noqa
 
+    # Flask-Login integration
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
         return self.username
 
 
-class Recipe(db.Model):
+class Recipe(db.Model, UserMixin):
     # schema for the Recipes model
     id = db.Column(db.Integer, primary_key=True)
     recipe_title = db.Column(db.String(50), unique=True, nullable=False)
@@ -24,7 +44,7 @@ class Recipe(db.Model):
     recipe_method = db.Column(db.Text, nullable=False)
     recipe_photo = db.Column(db.String(255), unique=True)
     created_at = db.Column(db.Date)
-    created_by = db.Column(db.String(20), db.ForeignKey("user.username", ondelete="CASCADE"))  # noqa
+    created_by = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))  # noqa
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string

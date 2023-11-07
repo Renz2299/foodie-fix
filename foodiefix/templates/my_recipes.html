@@ -5,14 +5,14 @@
     <div class="col s12 m12 l12">
         <div class="card bg-deep-fuscia first-page-item">
             <div class="card-content">
-                <p>Username: {{ session.user.capitalize() }}</p>
-                <p>Favourite Cuisine: {{ session.user.favourite_cuisine }}</p>
+                <p>Username: {{ current_user.username.capitalize() }}</p>
+                <p>Favourite Cuisine: {{ current_user.favourite_cuisine }}</p>
             </div>
         </div>
     </div>
 </div>
 
-<h3 class="deep-fuscia-text nunito center-align">{{ session.user.capitalize() }}'s Recipes</h3>
+<h3 class="deep-fuscia-text nunito center-align">{{ current_user.username.capitalize() }}'s Recipes</h3>
 
 <div class="row">
     <div class="col s12 center-align">
@@ -22,6 +22,7 @@
     </div>
 </div>
 
+{% if recipes|length %}
 <div class="row">
     {% for recipe in recipes %}
     <div class="col s12 m6 l4">
@@ -38,5 +39,16 @@
     </div>
     {% endfor %}
 </div>
+{% else %}
+<div class="row">
+    <div class="col s12 m12 l12">
+        <div class="card bg-deep-fuscia first-page-item">
+            <div class="card-content">
+                <p>Add some recipes</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}
