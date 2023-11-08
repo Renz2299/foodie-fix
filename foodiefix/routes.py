@@ -1,19 +1,75 @@
 from flask import flash, render_template, request, redirect, session, url_for
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from foodiefix import app, db
 from foodiefix.models import User, Recipe
 import datetime
 
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_user = User.query.filter_by(username=request.form.get("username").lower()).first()
+
+        if existing_user:
+            flash("Username already exists")
+            return redirect(url_for("login"))
+
+        hashed_password = generate_password_hash(request.form.get("password"), method='sha256')
+        user = User(
+            username=request.form.get("username").lower(),
+            password=hashed_password
+        )
+
+        db.session.add(user)
+        db.session.commit()
+
+        # log the new user in
+        login_user(user)
+        # put the new user into 'session' cookie
+        session["user"] = request.form.get("username").lower()
+        flash("Registration Successful!")
+        return redirect(url_for("my_recipes", username=session["user"]))
+
+    return render_template("register.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # check if username exists in db
+        existing_user = User.query.filter_by(username=request.form.get("username").lower()).first()
+
+        if existing_user and check_password_hash(existing_user.password, request.form.get("password")):
+            login_user(existing_user)
+            # put the new user into 'session' cookie
+            session["user"] = request.form.get("username").lower()
+            flash("Login successful!")
+            return redirect(url_for("my_recipes", username=session["user"]))
+        else:
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
+            
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash("You have been logged out")
+    return redirect(url_for("home"))
+
+
 @app.route("/")
 def home():
-    recipes = list(Recipe.query.order_by(Recipe.recipe_title).all())
+    recipes = Recipe.query.order_by(Recipe.recipe_title).all()
     return render_template("recipes.html", recipes=recipes)
 
 
 @app.route("/my_recipes")
 def my_recipes():
-    recipes = list(Recipe.query.order_by(Recipe.recipe_title).all())
+    recipes = Recipe.query.filter_by(created_by=current_user.id).order_by(Recipe.recipe_title).all()
     return render_template("my_recipes.html", recipes=recipes)
 
 
@@ -53,6 +109,10 @@ def view_recipe(recipe_id):
 @app.route("/edit_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
+    if recipe.created_by != current_user.id:
+        flash("Not permitted to edit this recipe")
+        return redirect(url_for("my_recipes"))
+    
     if request.method == "POST":
         recipe.recipe_title = request.form.get("recipe_title")
         recipe.recipe_description = request.form.get("recipe_description")
@@ -67,68 +127,28 @@ def edit_recipe(recipe_id):
 @app.route("/delete_recipe/<int:recipe_id>")
 def delete_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
+    if recipe.created_by != current_user.id:
+        flash("Not permitted to delete this recipe")
+        return redirect(url_for("my_recipes"))
+    
     db.session.delete(recipe)
     db.session.commit()
     return redirect(url_for("my_recipes"))
 
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
+@app.route("/edit_account/<int:user_id>", methods=["GET", "POST"])
+def edit_account(user_id):
+    user = User.query.get_or_404(user_id)
     if request.method == "POST":
-        # check if username already exists in db
-        existing_user = User.query.filter(User.username == \
-                                                request.form.get("username").lower()).all()
-
-        if existing_user:
-            flash("Username already exists")
-            return redirect(url_for("login"))
-
-        user = User(
-            username=request.form.get("username").lower(),
-            password=generate_password_hash(request.form.get("password")),
-        )
-
-        db.session.add(user)
+        user.username = request.form.get("username")
         db.session.commit()
-
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
-        flash("Registration Successful!")
-        return redirect(url_for("my_recipes", username=session["user"]))
-
-    return render_template("register.html")
+        return redirect(url_for("account"))
+    return render_template("account")
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        # check if username exists in db
-        existing_user = User.query.filter(User.username == \
-                                            request.form.get("username").lower()).all()
-
-        if existing_user:
-            print(request.form.get("username"))
-            # ensure hashed password matches user input
-            if check_password_hash(
-                existing_user[0].password, request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    return redirect(url_for(
-                        "my_recipes", username=session["user"]))
-            else:
-                # invalid password match
-                flash("Incorrect Username and/or Password")
-                return redirect(url_for("login"))
-        else:
-            # username doesn't exist
-            flash("Username doesn't exist")
-            return redirect(url_for("register"))
-            
-    return render_template("login.html")
-
-
-@app.route("/logout")
-def logout():
-    # remove user from session cookie
-    flash("You have been logged out")
-    session.pop("user")
+@app.route("/delete_account/<int:user_id>")
+def delete_account(user_id):
+    user = User.query.get_or_404(user_id)
+    db.session.delete(user)
+    db.session.commit()
     return redirect(url_for("home"))

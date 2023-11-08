@@ -1,10 +1,16 @@
-from foodiefix import db
+from foodiefix import db, login_manager
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import TIMESTAMP
+from flask_login import UserMixin
 from datetime import datetime
 
 
-class User(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+class User(db.Model, UserMixin):
     # schema for the User model
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)

@@ -6,10 +6,23 @@
         <div class="card bg-deep-fuscia first-page-item">
             <div class="card-content">
                 <img src="#" alt="">
-                <p>Username: {{ session.user.capitalize() }}</p>
-                <p>Favourite Cuisine: {{ session.user.favourite_cuisine }}</p>
+                <p>Username: {{ current_user.username.capitalize() }}</p>
+                <p>Favourite Cuisine: {{ current_user.id }}</p>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m6 l6">
+        <a href="#" class="btn bg-deep-fuscia">
+            <p class="nunito-white">Edit Account Details</p>
+        </a>
+    </div>
+    <div class="col s12 m6 l6">
+        <a href="#" class="btn bg-deep-fuscia">
+            <p class="nunito-white">Delete Account</p>
+        </a>
     </div>
 </div>
 
