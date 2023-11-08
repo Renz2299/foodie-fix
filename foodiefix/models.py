@@ -15,7 +15,7 @@ class User(db.Model):
         return self.username
 
 
-class Recipe(db.Model, UserMixin):
+class Recipe(db.Model):
     # schema for the Recipes model
     id = db.Column(db.Integer, primary_key=True)
     recipe_title = db.Column(db.String(50), unique=True, nullable=False)

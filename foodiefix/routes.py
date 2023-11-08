@@ -73,7 +73,7 @@ def delete_recipe(recipe_id):
 def register():
     if request.method == "POST":
         # check if username already exists in db
-        existing_user = User.query.filter_by(User.username == \
+        existing_user = User.query.filter(User.username == \
                                                 request.form.get("username").lower()).all()
 
         if existing_user:
@@ -102,8 +102,8 @@ def register():
 def login():
     if request.method == "POST":
         # check if username exists in db
-        existing_user = User.query.filter_by(User.username == \
-                                                request.form.get("username").lower()).all()
+        existing_user = User.query.filter(User.username == \
+                                            request.form.get("username").lower()).all()
 
         if existing_user:
             print(request.form.get("username"))
