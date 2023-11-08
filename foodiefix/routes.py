@@ -2,6 +2,7 @@ from flask import flash, render_template, request, redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from foodiefix import app, db
 from foodiefix.models import User, Recipe
+import datetime
 
 
 @app.route("/")
@@ -34,6 +35,8 @@ def add_recipe():
             recipe_ingredients=request.form.get("recipe_ingredients"),
             recipe_method=request.form.get("recipe_method"),
             recipe_photo=request.form.get("recipe_photo"),
+            created_at=request.form.get("created_at"),
+            created_by=request.form.get("created_by")
         )
         db.session.add(recipe)
         db.session.commit()
@@ -83,8 +86,6 @@ def register():
         user = User(
             username=request.form.get("username").lower(),
             password=generate_password_hash(request.form.get("password")),
-            favourite_cuisine=request.form.get("favourite_cuisine"),
-            profile_photo=request.form.get("profile_photo")
         )
 
         db.session.add(user)

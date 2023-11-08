@@ -1,4 +1,7 @@
 from foodiefix import db
+from sqlalchemy.orm import relationship
+from sqlalchemy.types import TIMESTAMP
+from datetime import datetime
 
 
 class User(db.Model):
@@ -6,9 +9,6 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    favourite_cuisine = db.Column(db.String(255))
-    profile_photo = db.Column(db.String(255))
-    recipes = db.relationship("Recipe", backref="user", cascade="all, delete", lazy=True)  # noqa
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
@@ -23,8 +23,9 @@ class Recipe(db.Model):
     recipe_ingredients = db.Column(db.String(255), nullable=False)
     recipe_method = db.Column(db.Text, nullable=False)
     recipe_photo = db.Column(db.String(255), unique=True)
-    created_at = db.Column(db.Date)
+    created_at = db.Column(db.DateTime, default = datetime.strftime(datetime.today(), "%b %d %Y"))
     created_by = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))  # noqa
+    user_id = db.relationship("User", backref=db.backref("recipe", cascade="all, delete", lazy=True))  # noqa
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
