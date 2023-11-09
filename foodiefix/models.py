@@ -1,8 +1,8 @@
 from foodiefix import db, login_manager
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import TIMESTAMP
-from flask_login import UserMixin
-from datetime import datetime
+from flask_login import UserMixin, current_user
+from datetime import date
 
 
 @login_manager.user_loader
@@ -29,9 +29,18 @@ class Recipe(db.Model):
     recipe_ingredients = db.Column(db.String(255), nullable=False)
     recipe_method = db.Column(db.Text, nullable=False)
     recipe_photo = db.Column(db.String(255), unique=True)
-    created_at = db.Column(db.DateTime, default = datetime.strftime(datetime.today(), "%b %d %Y"))
+    created_at = db.Column(db.Date, default = date.strftime(date.today(), "%b %d %Y"))
     created_by = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))  # noqa
     user_id = db.relationship("User", backref=db.backref("recipe", cascade="all, delete", lazy=True))  # noqa
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.created_by = current_user.id
+
+    def save(self):
+        self.created_at = self.created_at.date()
+        db.session.add(self)
+        db.session.commit()
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string

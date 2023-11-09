@@ -27,8 +27,6 @@ def register():
 
         # log the new user in
         login_user(user)
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("username").lower()
         flash("Registration Successful!")
         return redirect(url_for("my_recipes", username=session["user"]))
 
@@ -43,8 +41,6 @@ def login():
 
         if existing_user and check_password_hash(existing_user.password, request.form.get("password")):
             login_user(existing_user)
-            # put the new user into 'session' cookie
-            session["user"] = request.form.get("username").lower()
             flash("Login successful!")
             return redirect(url_for("my_recipes", username=session["user"]))
         else:
@@ -92,7 +88,7 @@ def add_recipe():
             recipe_method=request.form.get("recipe_method"),
             recipe_photo=request.form.get("recipe_photo"),
             created_at=request.form.get("created_at"),
-            created_by=request.form.get("created_by")
+            created_by=current_user.id
         )
         db.session.add(recipe)
         db.session.commit()
@@ -109,32 +105,35 @@ def view_recipe(recipe_id):
 @app.route("/edit_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
-    if recipe.created_by != current_user.id:
+    if recipe.created_by == current_user.id:
+        if request.method == "POST":
+            recipe.recipe_title = request.form.get("recipe_title")
+            recipe.recipe_description = request.form.get("recipe_description")
+            recipe.recipe_ingredients = request.form.get("recipe_ingredients")
+            recipe.recipe_method = request.form.get("recipe_method")
+            recipe.recipe_photo = request.form.get("recipe_photo")
+            db.session.commit()
+            return redirect(url_for("view_recipe", recipe_id=recipe.id))
+    
+    else:
         flash("Not permitted to edit this recipe")
         return redirect(url_for("my_recipes"))
     
-    if request.method == "POST":
-        recipe.recipe_title = request.form.get("recipe_title")
-        recipe.recipe_description = request.form.get("recipe_description")
-        recipe.recipe_ingredients = request.form.get("recipe_ingredients")
-        recipe.recipe_method = request.form.get("recipe_method")
-        recipe.recipe_photo = request.form.get("recipe_photo")
-        db.session.commit()
-        return redirect(url_for("view_recipe", recipe_id=recipe.id))
     return render_template("edit_recipe.html", recipe=recipe)
 
 
 @app.route("/delete_recipe/<int:recipe_id>")
 def delete_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
-    if recipe.created_by != current_user.id:
+    if recipe.created_by == current_user.id:
+        db.session.delete(recipe)
+        db.session.commit()
+        return redirect(url_for("my_recipes"))
+        
+    else:    
         flash("Not permitted to delete this recipe")
         return redirect(url_for("my_recipes"))
     
-    db.session.delete(recipe)
-    db.session.commit()
-    return redirect(url_for("my_recipes"))
-
 
 @app.route("/edit_account/<int:user_id>", methods=["GET", "POST"])
 def edit_account(user_id):
