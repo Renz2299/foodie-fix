@@ -19,7 +19,8 @@ def register():
         hashed_password = generate_password_hash(request.form.get("password"), method='sha256')
         user = User(
             username=request.form.get("username").lower(),
-            password=hashed_password
+            password=hashed_password,
+            favourite_cuisine=request.form.get("favourite_cuisine")
         )
 
         db.session.add(user)
@@ -41,7 +42,7 @@ def login():
 
         if existing_user and check_password_hash(existing_user.password, request.form.get("password")):
             login_user(existing_user)
-            flash("Login successful!")
+            flash("Login Successful!")
             return redirect(url_for("my_recipes", username=session["user"]))
         else:
             flash("Incorrect Username and/or Password")
@@ -140,6 +141,7 @@ def edit_account(user_id):
     user = User.query.get_or_404(user_id)
     if request.method == "POST":
         user.username = request.form.get("username")
+        user.favourite_cuisine = request.form.get("favourite_cuisine")
         db.session.commit()
         return redirect(url_for("account"))
     return render_template("edit_account.html", user=user)

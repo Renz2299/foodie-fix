@@ -6,7 +6,7 @@
         <div class="card bg-deep-fuscia first-page-item">
             <div class="card-content">
                 <p>Username: {{ current_user.username.capitalize() }}</p>
-                <p>Username: {{ current_user.id }}</p>
+                <p>Favourite Cuisine: {{ current_user.favourite_cuisine }}</p>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
             <div class="card-image">
                 <img src="static/img/generic_recipe.jpg">
             </div>
-            <div class="card-content">
+            <div class="recipe-card-content">
                 <span class="card-title">{{ recipe.recipe_title }}</span>
                 <p>{{ recipe.recipe_description }}</p>
                 <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}" class="btn btn-recipe bg-deep-fuscia">More Details</a>
@@ -41,12 +41,10 @@
 </div>
 {% else %}
 <div class="row">
-    <div class="col s12 m12 l12">
-        <div class="card bg-deep-fuscia first-page-item">
-            <div class="card-content">
-                <p>Add some recipes</p>
-            </div>
-        </div>
+    <div class="col s12">
+        <p class="center-align">You currently have no recipes, why not add one or check out other recipes
+            <a href="{{ url_for('home') }}" class="deep-fuscia-text hover-orange">here</a>
+        </p>
     </div>
 </div>
 {% endif %}

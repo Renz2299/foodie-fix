@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
+    favourite_cuisine = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
@@ -30,12 +31,14 @@ class Recipe(db.Model):
     recipe_method = db.Column(db.Text, nullable=False)
     recipe_photo = db.Column(db.String(255), unique=True)
     created_at = db.Column(db.Date, default = date.strftime(date.today(), "%b %d %Y"))
-    created_by = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))  # noqa
+    created_by = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))
+    creator = db.Column(db.String(20), unique=True, nullable=False)
     user_id = db.relationship("User", backref=db.backref("recipe", cascade="all, delete", lazy=True))  # noqa
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.created_by = current_user.id
+        self.creator = current_user.username
 
     def save(self):
         self.created_at = self.created_at.date()
