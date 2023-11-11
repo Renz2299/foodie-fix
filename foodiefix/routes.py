@@ -142,7 +142,7 @@ def edit_account(user_id):
         user.username = request.form.get("username")
         db.session.commit()
         return redirect(url_for("account"))
-    return render_template("account")
+    return render_template("edit_account.html", user=user)
 
 
 @app.route("/delete_account/<int:user_id>")
