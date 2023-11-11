@@ -9,4 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
       format: "dd mmmm, yyyy",
       i18n: {done: "Select"}
     });
+
+    let instance = M.Modal.getInstance(elem);
+
+    $(document).ready(function(){
+      $('.modal').modal({
+          instance.open(),
+          instance.close()
+      });
+    });
   });
