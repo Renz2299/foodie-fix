@@ -20,26 +20,32 @@
     </div>
     <div class="col s12 m6 l6">
         <!-- Modal Trigger -->
-        <a class="btn bg-deep-fuscia modal-trigger" href="#delete_account">
+        <a class="btn bg-deep-fuscia waves-effect waves-light modal-trigger" href="#delete_account">
             <p class="nunito-white">Delete Account</p>
         </a>
     </div>
 </div>
+{% endblock %}
 
+{% block modals %}
 <!-- Modal Structure -->
 <div id="delete_account" class="modal">
-    <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+    <div class="modal-content center-align">
+        <h3>Are you sure you want to delete your account?</h3>
     </div>
     <div class="modal-footer">
-        <a href="{{ url_for('delete_account', user_id=current_user.id) }}" class="btn bg-deep-fuscia">
-            <p class="nunito-white">Delete</p>
-        </a>
-        <a href="{{ url_for('account') }}" class="modal-close waves-effect waves-green btn-flat">
-            <p class="nunito-white">Nevermind</p>
-        </a>
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <a href="{{ url_for('delete_account', user_id=current_user.id) }}" class="btn delete-btn">
+                    <p class="nunito-white">Yes, delete</p>
+                </a>
+            </div>
+            <div class="col s12 m6 l6">
+                <a href="{{  url_for('account')}}" class="modal-close btn no-btn">
+                    <p class="nunito-white">No, go back</p>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
-
 {% endblock %}

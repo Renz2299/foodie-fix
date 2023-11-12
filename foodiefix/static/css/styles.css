@@ -148,6 +148,22 @@ a:hover {
     color: #DF6D00;
 }
 
+.delete-btn {
+    background-color: #F44336;
+}
+
+.delete-btn:hover {
+    background-color: #B71C1C;
+}
+
+.no-btn {
+    background-color: #4CAF50;
+}
+
+.no-btn:hover {
+    background-color: #1B5E20;
+}
+
 /* ---------------------------------------------------- forms */
 
 /* label focus color */
