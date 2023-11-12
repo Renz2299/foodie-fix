@@ -1,6 +1,7 @@
 from flask import flash, render_template, request, redirect, session, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from urllib.parse import urlparse
 from foodiefix import app, db
 from foodiefix.models import User, Recipe
 import datetime
@@ -91,8 +92,19 @@ def add_recipe():
             created_at=request.form.get("created_at"),
             created_by=current_user.id
         )
-        db.session.add(recipe)
-        db.session.commit()
+
+        def is_valid_url(url):
+            parsed_url = urlparse(url)
+            return bool(parsed_url.scheme and parsed_url.netloc)
+
+        url = recipe.recipe_photo
+        print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
+        if is_valid_url(url):
+            db.session.add(recipe)
+            db.session.commit()
+        else:
+            flash("Invalid photo URL!")
+            return redirect(url_for("my_recipes"))
         return redirect(url_for("my_recipes"))
     return render_template("add_recipe.html")
 
@@ -113,7 +125,20 @@ def edit_recipe(recipe_id):
             recipe.recipe_ingredients = request.form.get("recipe_ingredients")
             recipe.recipe_method = request.form.get("recipe_method")
             recipe.recipe_photo = request.form.get("recipe_photo")
-            db.session.commit()
+            
+            def is_valid_url(url):
+                parsed_url = urlparse(url)
+                return bool(parsed_url.scheme and parsed_url.netloc)
+
+            url = recipe.recipe_photo
+            print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
+        
+            if is_valid_url(url):
+                db.session.commit()
+            else:
+                flash("Invalid photo URL!")
+                return redirect(url_for("view_recipe", recipe_id=recipe.id))
+            
             return redirect(url_for("view_recipe", recipe_id=recipe.id))
     
     else:
