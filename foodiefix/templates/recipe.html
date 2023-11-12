@@ -31,7 +31,8 @@
     </div>
     <div class="col s12 m6 l6">
         <div class="card-action">
-            <a href="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" class="btn bg-deep-fuscia">
+            <!-- Modal Trigger -->
+            <a class="btn bg-deep-fuscia waves-effect waves-light modal-trigger" href="#delete_recipe">
                 <p class="nunito-white">Delete Recipe</p>
             </a>
         </div>
@@ -61,4 +62,27 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block modals %}
+<!-- Modal Structure -->
+<div id="delete_recipe" class="modal">
+    <div class="modal-content center-align">
+        <h3>Are you sure you want to delete this recipe?</h3>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <a href="{{ url_for('delete_recipe', recipe_id=recipe.id) }}" class="btn delete-btn">
+                    <p class="nunito-white">Yes, delete</p>
+                </a>
+            </div>
+            <div class="col s12 m6 l6">
+                <a href="{{  url_for('view_recipe', recipe_id=recipe.id)}}" class="modal-close btn no-btn">
+                    <p class="nunito-white">No, go back</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

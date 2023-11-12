@@ -29,7 +29,7 @@ class Recipe(db.Model):
     recipe_description = db.Column(db.String(255), nullable=False)
     recipe_ingredients = db.Column(db.String(255), nullable=False)
     recipe_method = db.Column(db.Text, nullable=False)
-    recipe_photo = db.Column(db.String(255), unique=True)
+    recipe_photo = db.Column(db.String(255))
     created_at = db.Column(db.Date, default = date.strftime(date.today(), "%b %d %Y"))
     created_by = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"))
     creator = db.Column(db.String(20), nullable=False)

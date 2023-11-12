@@ -99,7 +99,7 @@ def add_recipe():
 
         url = recipe.recipe_photo
         print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
-        if is_valid_url(url):
+        if is_valid_url(url) or url == "":
             db.session.add(recipe)
             db.session.commit()
         else:
@@ -133,7 +133,7 @@ def edit_recipe(recipe_id):
             url = recipe.recipe_photo
             print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
         
-            if is_valid_url(url):
+            if is_valid_url(url) or url == "":
                 db.session.commit()
             else:
                 flash("Invalid photo URL!")
