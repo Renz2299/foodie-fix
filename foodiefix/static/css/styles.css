@@ -96,6 +96,10 @@ p {
 
 /* ---------------------------------------------- recipe page */
 
+.recipe-img {
+    width: 100%;
+}
+
 .recipe-description {
     font-family: 'Carme', sans-serif;
     color: #BF0D38;

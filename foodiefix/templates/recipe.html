@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row">
-    <div class="col s12">
-        <img src="static/img/generic_recipe.jpg">
+<div class="row first-page-item">
+    <div class="col s12 m6 l6">
+        {% if recipe.recipe_photo|length %}
+            <img class="recipe-img" src="{{ recipe.recipe_photo }}">
+        {% else %}
+            <img class="recipe-img" src="static/img/generic_recipe.jpg" alt="">
+        {% endif %}
     </div>
-</div>
-
-<div class="row">
-    <div class="col s12 m12 l12">
+    <div class="col s12 m6 l6">
         <div class="card bg-deep-fuscia">
             <div class="card-content">
                 <span class="card-title">{{ recipe.recipe_title }}</span>
@@ -15,9 +16,11 @@
                 <p>Creator: {{ recipe.creator.capitalize() }}</p>
             </div>
         </div>
+        <p class="recipe-description">{{ recipe.recipe_description }}</p>
     </div>
 </div>
 
+{% if recipe.created_by == current_user.id %}
 <div class="row">
     <div class="col s12 m6 l6">
         <div class="card-action">
@@ -34,12 +37,7 @@
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col s12 m12 l12">
-        <p class="recipe-description center-align">{{ recipe.recipe_description }}</p>
-    </div>
-</div>
+{% endif %}
 
 <div class="row">
     <div class="col s12 m12 l12">

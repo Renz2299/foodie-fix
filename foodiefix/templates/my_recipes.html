@@ -28,7 +28,11 @@
     <div class="col s12 m6 l4">
         <div class="card bg-pale-yellow">
             <div class="card-image">
-                <img src="static/img/generic_recipe.jpg">
+            {% if recipe.recipe_photo|length %}
+                <img class="recipe-img" src="{{ recipe.recipe_photo }}">
+            {% else %}
+                <img class="recipe-img" src="static/img/generic_recipe.jpg" alt="">
+            {% endif %}
             </div>
             <div class="recipe-card-content">
                 <span class="card-title">{{ recipe.recipe_title }}</span>
