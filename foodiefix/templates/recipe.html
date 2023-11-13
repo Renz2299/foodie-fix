@@ -20,7 +20,7 @@
     </div>
 </div>
 
-{% if recipe.created_by == current_user.id %}
+{% if recipe.created_by == current_user.id or current_user.username == 'admin' %}
 <div class="row">
     <div class="col s12 m6 l6">
         <div class="card-action">

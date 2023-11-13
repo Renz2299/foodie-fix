@@ -8,8 +8,7 @@ A back end web application that allows users to browse a directory of recipes as
 
 Still to do:
 - Mustard colour is not currently used - Should this be implemented?
-
----
+- Better explanation on forms (tell user to add qty for ingredients and number steps in their method)
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -40,12 +39,8 @@ Still to do:
     * [Future Improvements](#)
 11. [Credits & Acknowledgements](#credits--acknowledgements)
 
----
-
 ## Project Overview
 Foodie Fix is a back end web application intended to help users find cooking inspiration and add their own recipes to a digital cookbook as well as allow other users to view their recipes. The application consits of four main pages: Home, My Recipes, Recipe and Account. The Home page is a recipe directory showing all recipes added to the application, if a user is not logged in they can only view the directory and do not have access to view individual recipe details, however, if a user is logged in they can view the recipe details. The My Recipes page is individual to each user showing them their profile and the recipes they have added to the application. The Recipe pages are where users can read and follow along with a recipe as well as edit or delete a recipe if they are the creator. The Account page is where users can view, edit and delete their account details.
-
----
 
 ## User Experience
 
@@ -189,17 +184,15 @@ Here is a list of aspirational features that would be nice to include in the app
 - Allow other users to navigate to a creators profile.
 - A site specific 404 page to keep the users on the site even in the event of an error.
 
----
-
 ## Database Planning
 
 SQL will be used in this project to create a relational database system containing the details needed for the application. One of the drawbacks of SQL is that once a database has been created and the fields have been filled with data, it is quite frustrating to edit or add new fields. Therefore, before creating any database functionality, the tables that would be needed for this project were planned out to hopefully prevent a frustrating and time-consuming update later on in the project.
 
-Below is a visualisation of the tables needed for the minimum viable application, this consists of a user table where users information from registration will be stored, and a recipes table where all the information relating to recipes will be stored. Each table has a primary key of id and the foreign key between the two tables is the user.name and recipes.created_by.
+Below is a visualisation of the tables needed for the minimum viable application, this consists of a user table where users information from registration will be stored, and a recipe table where all the information relating to recipes will be stored. Each table has a primary key of id and the foreign keys between the two tables is the user.id which is added to the recipe.created_by and the user.username which is added to the recipe.creator.
 
 ![A relational user table and recipes table](foodiefix/static/img/readme_imgs/db_plan_1.png)
 
-If throughout the project there is time to include any of the aspirational features mentioned in [Hi-Fi Wireframes](#hi-fi-wireframes), this is the visualisation showing the tables that will be needed. The recipes table has now got cuisine and meal fields so the database can be filtered based on those fields, and the reviews table has been added. All three tables have their own primary key of id, the foreign key between users and recipes has remained the same however the user.name is also the foreign key used in the reviews table and to link the recipes and reviews table, the recipe_id becomes the foreign key.
+If throughout the project there is time to include any of the aspirational features mentioned in [Hi-Fi Wireframes](#hi-fi-wireframes), this is the visualisation showing the tables that will be needed. The recipe table has now got cuisine and meal fields so the database can be filtered based on those fields, and the review table has been added. All three tables have their own primary key of id, the foreign keys between user and recipe table has remained the same however the user.name is also the foreign key used in the review table and to link the recipe and review tables, the recipe.id becomes the foreign key.
 
 ![A relational user table, recipes table and reviews table](foodiefix/static/img/readme_imgs/db_plan_2.png)
 
@@ -216,8 +209,6 @@ If throughout the project there is time to include any of the aspirational featu
 ### Version Control
 During the development of the application, GitHub was used to manage versions of each file. Commits were made often and consisted of one feature implementation or edit at a time so it would be easier to roll back to a previous version if required. Compared to milestone projects one and two there were even fewer commits due to a lot of the HTML and CSS being boilerplate code from previous personal projects as well as walkthrough projects from the Code Insitute course content. Similar to milestone project two, I was more diligant with the commits being made since Python was also a steep learning curve, meaning I could rollback a feature that wasn't working without it impacting any other features. Throughout the development of the project, I had to roll back my code once whilst trying to get Flask-Login user authetnication working as this was a feature that wasn't covered in the course content, therefore I was relying on external resources meaning some elements of code were missed whilst I was learning this new feature. In total, there were ... commits for this project. Details of the commits can be found here:
 
----
-
 ## Site Development & Features
 
 ### External Links Used Across Site
@@ -229,24 +220,52 @@ Three Google fonts were used throughout the site: Marvel, Nunito and Carme. Deta
 
 ### Base.html
 
+![Alt](foodiefix/static/img/readme_imgs/navbar_large.png)
+
+![Alt](foodiefix/static/img/readme_imgs/footer_large.png)
+
 ### Home Page
+
+![Alt](foodiefix/static/img/readme_imgs/home_large_not_authenticated.png)
+
+![Alt](foodiefix/static/img/readme_imgs/home_large_authenticated.png)
 
 ### Login & Register
 
+![Alt](foodiefix/static/img/readme_imgs/login_large.png)
+
+![Alt](foodiefix/static/img/readme_imgs/register_large.png)
+
 ### My Recipes Page
 
+![Alt](foodiefix/static/img/readme_imgs/my_recipes_large.png)
+
 ### Add & Edit Recipe
+
+![Alt](foodiefix/static/img/readme_imgs/add_recipe_large.png)
+
+![Alt](foodiefix/static/img/readme_imgs/edit_recipe_large.png)
 
 ### Recipe Page
 - Edit/ delete moved under header - Felt more fitting and would actually be seen
 - Image & header in same row on larger screens - Image was very large and took up unecessary amount of space, also the original layout was very simple and boring.
 
+![Alt](foodiefix/static/img/readme_imgs/recipe_large.png)
+
 ### Account Page
 - Profile photo removed - Seemed unecessary
 
+![Alt](foodiefix/static/img/readme_imgs/account_large.png)
+
 ### Edit Account
 
+![Alt](foodiefix/static/img/readme_imgs/edit_account_large.png)
+
 ### Delete Modals
+
+![Alt](foodiefix/static/img/readme_imgs/delete_recipe_large.png)
+
+![Alt](foodiefix/static/img/readme_imgs/delete_account_large.png)
 
 ---
 

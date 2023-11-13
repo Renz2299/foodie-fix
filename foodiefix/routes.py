@@ -30,7 +30,7 @@ def register():
         # log the new user in
         login_user(user)
         flash("Registration Successful!")
-        return redirect(url_for("my_recipes", username=session["user"]))
+        return redirect(url_for("my_recipes"))
 
     return render_template("register.html")
 
@@ -44,7 +44,7 @@ def login():
         if existing_user and check_password_hash(existing_user.password, request.form.get("password")):
             login_user(existing_user)
             flash("Login Successful!")
-            return redirect(url_for("my_recipes", username=session["user"]))
+            return redirect(url_for("my_recipes"))
         else:
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
@@ -78,35 +78,37 @@ def account():
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    if "user" not in session:
+    if current_user.is_authenticated:
+
+        if request.method == "POST":
+            recipe = Recipe(
+                recipe_title=request.form.get("recipe_title"),
+                recipe_description=request.form.get("recipe_description"),
+                recipe_ingredients=request.form.get("recipe_ingredients"),
+                recipe_method=request.form.get("recipe_method"),
+                recipe_photo=request.form.get("recipe_photo"),
+                created_at=request.form.get("created_at"),
+                created_by=current_user.id
+            )
+
+            def is_valid_url(url):
+                parsed_url = urlparse(url)
+                return bool(parsed_url.scheme and parsed_url.netloc)
+
+            url = recipe.recipe_photo
+            print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
+            if is_valid_url(url) or url == "":
+                db.session.add(recipe)
+                db.session.commit()
+            else:
+                flash("Invalid photo URL!")
+                return redirect(url_for("my_recipes"))
+            return redirect(url_for("my_recipes"))
+        return render_template("add_recipe.html")
+    
+    else:
         flash("You must be logged in to add recipes")
         return redirect(url_for("home"))
-
-    if request.method == "POST":
-        recipe = Recipe(
-            recipe_title=request.form.get("recipe_title"),
-            recipe_description=request.form.get("recipe_description"),
-            recipe_ingredients=request.form.get("recipe_ingredients"),
-            recipe_method=request.form.get("recipe_method"),
-            recipe_photo=request.form.get("recipe_photo"),
-            created_at=request.form.get("created_at"),
-            created_by=current_user.id
-        )
-
-        def is_valid_url(url):
-            parsed_url = urlparse(url)
-            return bool(parsed_url.scheme and parsed_url.netloc)
-
-        url = recipe.recipe_photo
-        print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
-        if is_valid_url(url) or url == "":
-            db.session.add(recipe)
-            db.session.commit()
-        else:
-            flash("Invalid photo URL!")
-            return redirect(url_for("my_recipes"))
-        return redirect(url_for("my_recipes"))
-    return render_template("add_recipe.html")
 
 
 @app.route("/view_recipe/<int:recipe_id>")
@@ -118,7 +120,7 @@ def view_recipe(recipe_id):
 @app.route("/edit_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
-    if recipe.created_by == current_user.id:
+    if recipe.created_by == current_user.id or current_user.username == 'admin':
         if request.method == "POST":
             recipe.recipe_title = request.form.get("recipe_title")
             recipe.recipe_description = request.form.get("recipe_description")
@@ -151,7 +153,7 @@ def edit_recipe(recipe_id):
 @app.route("/delete_recipe/<int:recipe_id>")
 def delete_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
-    if recipe.created_by == current_user.id:
+    if recipe.created_by == current_user.id or current_user.username == 'admin':
         db.session.delete(recipe)
         db.session.commit()
         return redirect(url_for("my_recipes"))
