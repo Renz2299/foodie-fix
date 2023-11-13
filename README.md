@@ -9,6 +9,7 @@ A back end web application that allows users to browse a directory of recipes as
 Still to do:
 - Mustard colour is not currently used - Should this be implemented?
 - Better explanation on forms (tell user to add qty for ingredients and number steps in their method)
+- sample env.py
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -96,8 +97,6 @@ Following testing of these wireframes to understand how a user would navigate th
 **Account Page**
 
 ![Initial wireframes of the Foodie Fix Account page](foodiefix/static/img/readme_imgs/wireframes_mk1_03.png)
-
----
 
 ## Design Choices
 
@@ -196,8 +195,6 @@ If throughout the project there is time to include any of the aspirational featu
 
 ![A relational user table, recipes table and reviews table](foodiefix/static/img/readme_imgs/db_plan_2.png)
 
----
-
 ## Project Management
 
 ### Languages Used
@@ -214,37 +211,98 @@ During the development of the application, GitHub was used to manage versions of
 ### External Links Used Across Site
 Materialize CSS framework was used throughout the site to aid in developing a responsive, well-laid out site. This framework allowed the main structure of the site to be developed quickly and copied across pages, therefore time could be well-spent focussing on the functionality of the SQL database and linking the data to the front-end.
 
+The responsiveness of the site was setup using materialize column classes referring to small, medium and large screens. On small screens most content fills the whole screen therefore the s12 class was used. On medium screens the m6 class was used to split content into two columns. On large screens a mixture of l6 and l4 was used to split content into either two or three columns where appropriate.
+
 Font Awesome icons were used in the site forms and for the links in the footer.
 
 Three Google fonts were used throughout the site: Marvel, Nunito and Carme. Details on the choice of these fonts can be found in the [Typography](#typography) section above.
 
 ### Base.html
+Jinja templating was used throughout the site, each page of the site extends from the base.html file which lays out the navbar and footer.
 
+The navbar consists of the site name and page links. If the user is authenticated all four links appear on the navbar, however if the user is not authenticated only the home link is visible.
+
+The authenticated navbar on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/navbar_large.png)
 
+The authenticated navbar on small screen.
+![Alt](foodiefix/static/img/readme_imgs/navbar_small.png)
+
+The not authenticated navbar on large screen.
+![Alt](foodiefix/static/img/readme_imgs/navbar_large_not_authenticated.png)
+
+The footer consists of copyright information on the left and three social links on the right.
+
+The footer on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/footer_large.png)
 
-### Home Page
+The footer on small screen.
+![Alt](foodiefix/static/img/readme_imgs/footer_small.png)
 
+### Home Page
+The home page showcases all recipes on the application in a grid format. Similar to the navbar, this page will look different depending on whether a user is authenticated or not. If a user is not authenticated, for example when they first access the site, they see a welcome title followed by two buttons encouraging them to either register or login. Beneath this is the grid of recipes.
+
+Home page on large screen when not authenticated.
 ![Alt](foodiefix/static/img/readme_imgs/home_large_not_authenticated.png)
 
+Home page on small screen when not authenticated.
+![Alt](foodiefix/static/img/readme_imgs/home_small_not_authenticated.png)
+
+If a user is authenticated instead of the welcome title they see their username followed by 'Let's get cooking' and the login and register buttons are no longer visible. Also, on the recipe cards a button is now visible encouraging the user to click to see more details about the recipe.
+
+Home page on large screen when authenticated.
 ![Alt](foodiefix/static/img/readme_imgs/home_large_authenticated.png)
 
-### Login & Register
+Home page on small screen when authenticated.
+![Alt](foodiefix/static/img/readme_imgs/home_small_authenticated.png)
 
+### Login & Register
+The login and registration forms are simple materialize forms that have been customised to fit the application.
+
+The login form asks users to enter their username and password. At the bottom is a link to the register page if they are not already registered.
+
+Login form on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/login_large.png)
 
+Login form on small screen.
+![Alt](foodiefix/static/img/readme_imgs/login_small.png)
+
+The registration form asks users to enter a username, password and their favourite cuisine. Similar to the login form, there is a link at the bottom for users to login if they are already registered.
+
+Registration form on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/register_large.png)
 
-### My Recipes Page
+Registration form on small screen.
+![Alt](foodiefix/static/img/readme_imgs/register_small.png)
 
+### My Recipes Page
+The my recipes page shows the current user their account details at the top followed by a grid of their recipes that they have added to the site with a button to add more recipes.
+
+My recipes page on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/my_recipes_large.png)
 
-### Add & Edit Recipe
+My recipes page on small screen.
+![Alt](foodiefix/static/img/readme_imgs/my_recipes_small.png)
 
+### Add & Edit Recipe
+The add and edit recipe pages are simple materialize forms that have been customised to fit the site.
+
+The add recipe form consists of a title, description, ingredients, method and photo. All fields are strings and the photo must be a URL, there is URL validation within the add recipe route to ensure the URL is valid before posting the data to the database.
+
+Add recipe form on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/add_recipe_large.png)
 
+Add recipe form on small screen.
+![Alt](foodiefix/static/img/readme_imgs/add_recipe_small.png)
+
+The edit recipe form consists of the same fields as the add recipe form however these fields are pre-filled with the current values.
+
+Edit recipe form on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/edit_recipe_large.png)
+
+Edit recipe form on small screen.
+![Alt](foodiefix/static/img/readme_imgs/edit_recipe_small.png)
+
 
 ### Recipe Page
 - Edit/ delete moved under header - Felt more fitting and would actually be seen
