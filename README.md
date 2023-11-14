@@ -26,9 +26,9 @@ Still to do:
 7. [Pre-Deployment Testing](#)
     * [Manual vs. Automated Testing](#)
     * [Testing During Development](#)
-    * [Bug Fixes](#)
     * [Responsiveness](#)
     * [Browser Compatibility](#)
+    * [Bug Fixes](#)
     * [Code Validation](#)
     * [User Story Testing](#)
     * [Feature Testing](#)
@@ -348,25 +348,94 @@ Delete account modal on large screen.
 Delete account modal on small screen.
 ![Alt](foodiefix/static/img/readme_imgs/delete_account_small.png)
 
----
-
 ## Pre-Deployment Testing
 
-### Bug Fixes
-- Footer links lower than copyright info
-- Generic recipe img link
+### Testing During Development
 - Flask-login setup
+- Code snippets from login testing
+
+### Responsiveness
+Screen Width | | | | | Device | | | | |
+---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
+| | Galaxy S9+ (320px) | iPhone 6/7/8 (375px) | iPhone XR (414px) | iPad Mini (768px) | iPad Air (820px) | Surface Pro 7 (912px) | iPad Pro (1024px) | Desktop (1201px) | Desktop (2000px)
+<= 576px | Good | Good | Good | NA | NA | NA | NA | NA | NA
+576px < >= 992px | NA | NA | NA | Good | Good | Good | NA | NA | NA
+992px < | NA | NA | NA | NA | NA | NA | Good | Good | Good
+Links/ URLs work | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes
+Images work | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes
+Renders as expected | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes
+
+- Delete modal on mobile needs bottom padding
+- Truncate text on recipe cards
+
+### Browser Compatibility
+
+| | Browser | | | Notes
+:--- | :--- | --- | --- | ---
+| | Chrome | Edge | Firefox
+Intended Appearance? | Yes | Yes | Yes | Site appears as expected on all browsers tested
+Intended Responsiveness? | Yes | Yes | Yes | Site responds as expected on all browsers tested
+Forms Work as Expected? | Yes | Yes | Yes | All forms function as expected in all browsers tested
+
+### Bug Fixes
+
+**Bug One:** The generic_recipe.jpg was not visible on the individual recipe pages. After reviewing the image link shown in Chrome Developer Tools, I found the issue was that 'view_recipe' was being added to the start of the image path from the view_recipe route. Therefore, to resolve this, I made the image source in the code an absolute filepath by putting '../' at the beginning, meaning the individual recipe pages can correctly locate the image from within the file structure.
+
+![Alt](foodiefix/static/img/readme_imgs/recipe_img_src.png)
+
+![Alt](foodiefix/static/img/readme_imgs/generic_recipe_img.png)
+
+**Bug Two:** Recipe cards with longer titles or descriptions were rendering taller on the home and my recipes pages than the other recipe cards, meaning the grid layout had a gap under the taller cards since the next card couldn't sit directly beneath it. To resolve this I used the Jinja truncate feature to cut the length of the recipe title and description so the cards will always display at the same height.
+
+![Alt](foodiefix/static/img/readme_imgs/truncate_code.png)
+
+![Alt](foodiefix/static/img/readme_imgs/truncate_recipe_cards.png)
+
+- Footer links lower than copyright info
 - Truncate long text of recipe cards
 - Edit/Delete & Login/Register buttons no padding
+- More details button colours
+- Padding on delete modal on mobile
 
----
+### Code Validation
+
+### User Story Testing
+
+### Feature Testing
 
 ## Deployment
+- Set description to min 40 characters
 
----
+### Database Creation with Elephant SQL
+
+### Site Deployment to Heroku
+
+### Linking SQL Database to Heroku App
+
+### Deployed Database Setup
 
 ## Post-Deployment Testing
 
----
+### Responsiveness
+Screen Width | | | | | Device | | | | |
+---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
+| | Galaxy S9+ (320px) | iPhone 6/7/8 (375px) | iPhone XR (414px) | iPad Mini (768px) | iPad Air (820px) | Surface Pro 7 (912px) | iPad Pro (1024px) | Desktop (1201px) | Desktop (2000px)
+<= 576px |  |  |  | NA | NA | NA | NA | NA | NA
+576px < >= 992px | NA | NA | NA |  |  |  | NA | NA | NA
+992px < | NA | NA | NA | NA | NA | NA |  |  | 
+Links/ URLs work | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes
+Images work | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes
+Renders as expected |  |  |  |  |  |  |  |  | 
+
+### Browser Compatibility
+| | Browser | | | Notes
+:--- | :--- | --- | --- | ---
+| | Chrome | Edge | Firefox
+Intended Appearance? |  |  |  | Site appears as expected on all browsers tested
+Intended Responsiveness? |  |  |  | Site responds as expected on all browsers tested
+
+### Lighthouse Testing
+
+### Future Improvements
 
 ## Credits & Acknowledgement
