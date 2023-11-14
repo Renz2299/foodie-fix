@@ -62,7 +62,7 @@ h3 {
     font-size: 28px;
 }
 
-footer p, .card-content p, .recipe-card-content p {
+footer p, .card-content p, .recipe-card-content p:not(.nunito-white) {
     font-family: 'Carme', sans-serif;
     color: #ffffff;
 }
@@ -194,4 +194,12 @@ a:hover {
 /* icon prefix color */
 .input-field .prefix {
     color: #DF6D00;
+}
+
+/* -------------------------------------------- media queries */
+
+@media only screen and (max-width: 600px) {
+    .btn {
+        margin-top: 10px;
+    }
 }

@@ -391,17 +391,66 @@ Forms Work as Expected? | Yes | Yes | Yes | All forms function as expected in al
 
 ![Alt](foodiefix/static/img/readme_imgs/truncate_recipe_cards.png)
 
-- Footer links lower than copyright info
-- Truncate long text of recipe cards
+**Bug Three:**
 - Edit/Delete & Login/Register buttons no padding
+
+![Alt](foodiefix/static/img/readme_imgs/account_small.png)
+
+![Alt](foodiefix/static/img/readme_imgs/media_query_btn_class.png)
+
+![Alt](foodiefix/static/img/readme_imgs/btn_fixed.png)
+
 - More details button colours
+
+**Bug Four:**
 - Padding on delete modal on mobile
+
+**Bug Five:**
+- Footer links lower than copyright info
 
 ### Code Validation
 
 ### User Story Testing
 
+User Story | Testing
+--- | ---
+As a user | 
+As a user | 
+As a user | 
+As a user | 
+As a user | 
+
 ### Feature Testing
+
+Feature | Action | Effect
+--- | --- | ---
+Logo (all pages) | Hover over | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click | Direct users to index.html
+Site Navigation (<768px wide) (all pages) | Hover over toggler | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click toggler | Opens dropdown navigation menu
+| | Hover over page | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click page | Directs user to selected page
+Site Navigation (>=768px wide) (all pages) | Hover over page | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click page | Directs user to selected page
+Place Type Criteria | Hover over | Bug: A hover needs adding to this feature to provide suitable feedback to the user
+| | Click | Opens a dropdown selection of place types
+| | Hover over | Highlights the place type
+| | Click | Selects the place type
+Submit Place Type | Hover over | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click | Shows nearby places of that type on the map below
+Map (index.html, oxford.html, bath.html & falmouth.html) | Click & Drag | Pan around the map
+| | Ctrl & Scroll | Zoom in or out of the map
+Map Markers (index.html, oxford.html, bath.html & falmouth.html) | Click | An info-window appears above the marker and a place card is opened beneath the map
+Place Card | Hover over link | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click | Directs user to external webpage for that place. Bug: This doesn't open in a new tab
+Footer Links (all pages) | Hover over | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click | Opens selected social page in a new tab
+Inspiration Card Button | Hover over | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click | Directs user to selected adventure guide
+Contact Form | Hover over data fields | Cursor changes to a text cursor, border colour changes to #7FFF30
+| | Click in data field | Border changes to black, typing cursor appears in data field
+| | Hover over 'SUBMIT' | Cursor changes to a pointer, colour changes to #7FFF30
+| | Click 'SUBMIT' | If data fields filled in correctly: Directs user to thank you page. If data fields not filled in correctly: Alerts user which field is missing or has incorrect data
 
 ## Deployment
 - Set description to min 40 characters
@@ -410,7 +459,7 @@ Forms Work as Expected? | Yes | Yes | Yes | All forms function as expected in al
 
 ### Site Deployment to Heroku
 
-### Linking SQL Database to Heroku App
+### Linking ESQL Database to Heroku App
 
 ### Deployed Database Setup
 
