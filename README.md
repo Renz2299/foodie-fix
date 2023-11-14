@@ -400,15 +400,19 @@ Forms Work as Expected? | Yes | Yes | Yes | All forms function as expected in al
 
 ![Alt](foodiefix/static/img/readme_imgs/btn_fixed.png)
 
-- More details button colours
+- More details button colours - easy fix, moved text into span and targeted hover color in CSS
 
 **Bug Four:**
-- Padding on delete modal on mobile
-
-**Bug Five:**
 - Footer links lower than copyright info
 
 ### Code Validation
+
+| | Validations | Notes
+---: | --- | ---
+HTML | Checked on: https://validator.w3.org/ | **Errors:** Missing favicon. Images don't have alt attributes. **Warnings:** Sections don't have headers. P element not allowed as child of button element in this context.
+CSS | Checked on: https://jigsaw.w3.org/css-validator/ | No errors or warnings found.
+JavaScript | Checked on: https://jshint.com/ | **Errors:** No errors. **Warnings:** 'let' is available in ES6.
+Python | Checked on: https://pep8ci.herokuapp.com/ | **Errors:** No errors.  **Warnings:** Lines shouldn't be longer than 79 characters. Under/ Over indentation.
 
 ### User Story Testing
 

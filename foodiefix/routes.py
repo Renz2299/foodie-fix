@@ -1,5 +1,11 @@
 from flask import flash, render_template, request, redirect, session, url_for
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_login import (
+    LoginManager,
+    login_user,
+    login_required,
+    logout_user,
+    current_user
+)
 from werkzeug.security import generate_password_hash, check_password_hash
 from urllib.parse import urlparse
 from foodiefix import app, db
@@ -11,13 +17,15 @@ import datetime
 def register():
     if request.method == "POST":
         # check if username already exists in db
-        existing_user = User.query.filter_by(username=request.form.get("username").lower()).first()
+        existing_user = User.query.filter_by(
+            username=request.form.get("username").lower()).first()
 
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("login"))
 
-        hashed_password = generate_password_hash(request.form.get("password"), method='sha256')
+        hashed_password = generate_password_hash(
+            request.form.get("password"), method='sha256')
         user = User(
             username=request.form.get("username").lower(),
             password=hashed_password,
@@ -39,16 +47,18 @@ def register():
 def login():
     if request.method == "POST":
         # check if username exists in db
-        existing_user = User.query.filter_by(username=request.form.get("username").lower()).first()
+        existing_user = User.query.filter_by(
+            username=request.form.get("username").lower()).first()
 
-        if existing_user and check_password_hash(existing_user.password, request.form.get("password")):
+        if existing_user and check_password_hash(
+                        existing_user.password, request.form.get("password")):
             login_user(existing_user)
             flash("Login Successful!")
             return redirect(url_for("my_recipes"))
         else:
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
-            
+
     return render_template("login.html")
 
 
@@ -67,7 +77,8 @@ def home():
 
 @app.route("/my_recipes")
 def my_recipes():
-    recipes = Recipe.query.filter_by(created_by=current_user.id).order_by(Recipe.recipe_title).all()
+    recipes = Recipe.query.filter_by(
+        created_by=current_user.id).order_by(Recipe.recipe_title).all()
     return render_template("my_recipes.html", recipes=recipes)
 
 
@@ -105,7 +116,7 @@ def add_recipe():
                 return redirect(url_for("my_recipes"))
             return redirect(url_for("my_recipes"))
         return render_template("add_recipe.html")
-    
+
     else:
         flash("You must be logged in to add recipes")
         return redirect(url_for("home"))
@@ -120,48 +131,50 @@ def view_recipe(recipe_id):
 @app.route("/edit_recipe/<int:recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
-    if recipe.created_by == current_user.id or current_user.username == 'admin':
+    if recipe.created_by == current_user.id or\
+            current_user.username == 'admin':
         if request.method == "POST":
             recipe.recipe_title = request.form.get("recipe_title")
             recipe.recipe_description = request.form.get("recipe_description")
             recipe.recipe_ingredients = request.form.get("recipe_ingredients")
             recipe.recipe_method = request.form.get("recipe_method")
             recipe.recipe_photo = request.form.get("recipe_photo")
-            
+
             def is_valid_url(url):
                 parsed_url = urlparse(url)
                 return bool(parsed_url.scheme and parsed_url.netloc)
 
             url = recipe.recipe_photo
             print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
-        
+
             if is_valid_url(url) or url == "":
                 db.session.commit()
             else:
                 flash("Invalid photo URL!")
                 return redirect(url_for("view_recipe", recipe_id=recipe.id))
-            
+
             return redirect(url_for("view_recipe", recipe_id=recipe.id))
-    
+
     else:
         flash("Not permitted to edit this recipe")
         return redirect(url_for("my_recipes"))
-    
+
     return render_template("edit_recipe.html", recipe=recipe)
 
 
 @app.route("/delete_recipe/<int:recipe_id>")
 def delete_recipe(recipe_id):
     recipe = Recipe.query.get_or_404(recipe_id)
-    if recipe.created_by == current_user.id or current_user.username == 'admin':
+    if recipe.created_by == current_user.id or\
+            current_user.username == 'admin':
         db.session.delete(recipe)
         db.session.commit()
         return redirect(url_for("my_recipes"))
-        
-    else:    
+
+    else:
         flash("Not permitted to delete this recipe")
         return redirect(url_for("my_recipes"))
-    
+
 
 @app.route("/edit_account/<int:user_id>", methods=["GET", "POST"])
 def edit_account(user_id):
