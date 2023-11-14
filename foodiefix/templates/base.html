@@ -30,8 +30,11 @@
         <!-- mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
             <li><a href="{{ url_for('home') }}">HOME</a></li>
+            {% if current_user.is_authenticated %}
             <li><a href="{{ url_for('my_recipes') }}">MY RECIPES</a></li>
             <li><a href="{{ url_for('account') }}">ACCOUNT</a></li>
+            <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
+            {% endif %}
         </ul>
     </header>
 

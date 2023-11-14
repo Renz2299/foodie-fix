@@ -225,11 +225,14 @@ The navbar consists of the site name and page links. If the user is authenticate
 The authenticated navbar on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/navbar_large.png)
 
+The not authenticated navbar on large screen.
+![Alt](foodiefix/static/img/readme_imgs/navbar_large_not_authenticated.png)
+
 The authenticated navbar on small screen.
 ![Alt](foodiefix/static/img/readme_imgs/navbar_small.png)
 
-The not authenticated navbar on large screen.
-![Alt](foodiefix/static/img/readme_imgs/navbar_large_not_authenticated.png)
+The mobile sidenav.
+![Alt](foodiefix/static/img/readme_imgs/mobile_sidenav.png)
 
 The footer consists of copyright information on the left and three social links on the right.
 
@@ -308,26 +311,53 @@ Edit recipe form on small screen.
 - Edit/ delete moved under header - Felt more fitting and would actually be seen
 - Image & header in same row on larger screens - Image was very large and took up unecessary amount of space, also the original layout was very simple and boring.
 
+Recipe page on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/recipe_large.png)
+
+Recipe page on small screen.
+![Alt](foodiefix/static/img/readme_imgs/recipe_small.png)
 
 ### Account Page
 - Profile photo removed - Seemed unecessary
 
+Account page on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/account_large.png)
+
+Account page on small screen.
+![Alt](foodiefix/static/img/readme_imgs/account_small.png)
 
 ### Edit Account
 
+Edit account form on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/edit_account_large.png)
+
+Edit account form on small screen.
+![Alt](foodiefix/static/img/readme_imgs/edit_account_small.png)
 
 ### Delete Modals
 
+Delete recipe modal on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/delete_recipe_large.png)
 
+Delete recipe modal on small screen.
+![Alt](foodiefix/static/img/readme_imgs/delete_recipe_small.png)
+
+Delete account modal on large screen.
 ![Alt](foodiefix/static/img/readme_imgs/delete_account_large.png)
+
+Delete account modal on small screen.
+![Alt](foodiefix/static/img/readme_imgs/delete_account_small.png)
 
 ---
 
 ## Pre-Deployment Testing
+
+### Bug Fixes
+- Footer links lower than copyright info
+- Generic recipe img link
+- Flask-login setup
+- Truncate long text of recipe cards
+- Edit/Delete & Login/Register buttons no padding
 
 ---
 
