@@ -108,12 +108,14 @@ def add_recipe():
 
             url = recipe.recipe_photo
             print("Valid URL!" if is_valid_url(url) else "Invalid URL!")
+            
             if is_valid_url(url) or url == "":
                 db.session.add(recipe)
                 db.session.commit()
             else:
-                flash("Invalid photo URL!")
+                flash("Invalid photo URL")
                 return redirect(url_for("my_recipes"))
+            flash("Recipe Succesfully Added!")
             return redirect(url_for("my_recipes"))
         return render_template("add_recipe.html")
 
@@ -150,9 +152,10 @@ def edit_recipe(recipe_id):
             if is_valid_url(url) or url == "":
                 db.session.commit()
             else:
-                flash("Invalid photo URL!")
+                flash("Invalid photo URL")
                 return redirect(url_for("view_recipe", recipe_id=recipe.id))
 
+            flash("Recipe Successfully Updated!")
             return redirect(url_for("view_recipe", recipe_id=recipe.id))
 
     else:
@@ -169,6 +172,7 @@ def delete_recipe(recipe_id):
             current_user.username == 'admin':
         db.session.delete(recipe)
         db.session.commit()
+        flash("Recipe Deleted!")
         return redirect(url_for("my_recipes"))
 
     else:
@@ -183,6 +187,7 @@ def edit_account(user_id):
         user.username = request.form.get("username")
         user.favourite_cuisine = request.form.get("favourite_cuisine")
         db.session.commit()
+        flash("Account Successfully Updated!")
         return redirect(url_for("account"))
     return render_template("edit_account.html", user=user)
 
@@ -192,4 +197,5 @@ def delete_account(user_id):
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
+    flash("Account Deleted!")
     return redirect(url_for("home"))

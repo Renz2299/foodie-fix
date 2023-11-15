@@ -20,17 +20,17 @@
             <div class="input-field col s12">
                 <i class="fa-solid fa-carrot prefix"></i>
                 <input id="recipe_ingredients" name="recipe_ingredients" value="{{ recipe.recipe_ingredients }}" maxlength="255" type="text" class="validate" required>
-                <label for="recipe_ingredients">Ingredients</label>
+                <label for="recipe_ingredients">Ingredients - Please list quantities of each ingredient</label>
             </div>
             <div class="input-field col s12">
                 <i class="fa-solid fa-spoon prefix"></i>
                 <input id="recipe_method" name="recipe_method" value="{{ recipe.recipe_method }}" type="text" class="validate" required>
-                <label for="recipe_method">Method</label>
+                <label for="recipe_method">Method - Please number each step in your recipe</label>
             </div>
             <div class="input-field col s12">
                 <i class="fa-solid fa-image prefix"></i>
                 <input id="recipe_photo" name="recipe_photo" value="{{ recipe.recipe_photo }}" maxlength="255" type="text" class="validate">
-                <label for="recipe_photo">Photo</label>
+                <label for="recipe_photo">Photo URL</label>
             </div>
         </div>
         <!-- submit button -->
