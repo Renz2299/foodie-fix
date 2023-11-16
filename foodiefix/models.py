@@ -18,7 +18,6 @@ class User(db.Model, UserMixin):
     favourite_cuisine = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
-        # __repr__ to represent itself in the form of a string
         return self.username
 
 
@@ -50,7 +49,6 @@ class Recipe(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        # __repr__ to represent itself in the form of a string
         return "#{0} - Recipe: {1} | Description: {2}".format(
             self.id, self.recipe_title, self.recipe_description
         )

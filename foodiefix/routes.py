@@ -16,7 +16,6 @@ import datetime
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # check if username already exists in db
         existing_user = User.query.filter_by(
             username=request.form.get("username").lower()).first()
 
@@ -35,7 +34,6 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        # log the new user in
         login_user(user)
         flash("Registration Successful!")
         return redirect(url_for("my_recipes"))
@@ -46,7 +44,6 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        # check if username exists in db
         existing_user = User.query.filter_by(
             username=request.form.get("username").lower()).first()
 
